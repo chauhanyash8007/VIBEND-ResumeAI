@@ -3,7 +3,12 @@ import { api } from "../convex/_generated/api";
 import { SignInForm } from "./SignInForm";
 import { SignOutButton } from "./SignOutButton";
 import { Toaster } from "sonner";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { ResumeBuilderPage } from "./pages/ResumeBuilderPage";
@@ -24,7 +29,7 @@ export default function App() {
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Toaster position="top-right" />
-        
+
         <Unauthenticated>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -55,8 +60,12 @@ function LoginPage() {
       <div className="max-w-md w-full mx-4">
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-            <p className="text-gray-600">Sign in to continue building your resume</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-gray-600">
+              Sign in to continue building your resume
+            </p>
           </div>
           <SignInForm />
         </div>
