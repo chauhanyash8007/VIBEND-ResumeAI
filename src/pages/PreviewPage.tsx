@@ -3,14 +3,28 @@ import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { ResumePreview } from "../components/ResumePreview";
 import { ArrowLeft, Download, Share2 } from "lucide-react";
+import html2pdf from "html2pdf.js";
 
 export function PreviewPage() {
   const { resumeId } = useParams();
-  const resume = useQuery(api.resumes.getResume, resumeId ? { resumeId: resumeId as any } : "skip");
+  const resume = useQuery(
+    api.resumes.getResume,
+    resumeId ? { resumeId: resumeId as any } : "skip"
+  );
 
   const handleDownload = () => {
-    // This would typically generate a PDF
-    window.print();
+    const resumeElement = document.getElementById("resume");
+    if (!resumeElement) return;
+
+    const opt = {
+      margin: 0.5,
+      filename: `${resume?.title || "resume"}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    html2pdf().set(opt).from(resumeElement).save();
   };
 
   const handleShare = () => {
@@ -48,11 +62,13 @@ export function PreviewPage() {
                 Back to Dashboard
               </Link>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">{resume.title}</h1>
+                <h1 className="text-xl font-semibold text-gray-900">
+                  {resume.title}
+                </h1>
                 <p className="text-sm text-gray-600">Resume Preview</p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleShare}
@@ -81,7 +97,9 @@ export function PreviewPage() {
 
       {/* Preview */}
       <div className="max-w-5xl mx-auto px-6 py-8">
-        <ResumePreview resume={resume} />
+        <div id="resume">
+          <ResumePreview resume={resume} />
+        </div>
       </div>
     </div>
   );
