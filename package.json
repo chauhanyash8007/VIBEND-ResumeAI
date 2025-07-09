@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.32.4",
-    "@convex-dev/auth": "^0.0.80",
+    "@convex-dev/auth": "^0.0.87",
     "clsx": "^2.1.1",
     "convex": "^1.24.2",
     "html2pdf.js": "^0.10.3",
